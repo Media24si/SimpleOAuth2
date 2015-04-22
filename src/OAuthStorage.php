@@ -9,6 +9,7 @@ use OAuth2\Model\IOAuth2AccessToken;
 use OAuth2\Model\IOAuth2Client;
 
 use Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser {
 
@@ -108,6 +109,10 @@ class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser {
 		$token->token = $oauthToken;
 		$token->expires_at = $expires;
 		$token->scope = $scope;
+
+		if ( $data instanceof Authenticatable) {
+			$token->user_id = $data->getAuthIdentifier();
+		}
 
 		$token->save();
 

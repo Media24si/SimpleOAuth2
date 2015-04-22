@@ -31,6 +31,9 @@ class SimpleOAuth2ServiceProvider extends ServiceProvider  {
 			'Media24si\SimpleOAuth2\Console\CreateClient',
 			'Media24si\SimpleOAuth2\Console\ListClients'
 		]);
+
+		$this->app->bind('OAuth2\IOAuth2Storage', 'Media24si\SimpleOAuth2\OAuthStorage');
+		$this->app->bind('OAuth2\OAuth2', 'OAuth2\OAuth2');
 		//$this->registerViews();
 	}
 
