@@ -30,10 +30,11 @@ class ListClients extends Command {
 		$clients = Client::all();
 
 		$table = new Table($this->getOutput());
-		$table->setHeaders(array('Client id', 'Client secret', 'Redirect uris', 'Allowed grant types'));
+		$table->setHeaders(array('Client name', 'Client id', 'Client secret', 'Redirect uris', 'Allowed grant types'));
 
 		foreach ($clients as $client) {
 			$table->addRow([
+				$client->name,
 				$client->client_id,
 				$client->client_secret,
 				$client->redirect_uris == null ? '' : implode(PHP_EOL, $client->redirect_uris),

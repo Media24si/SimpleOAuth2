@@ -21,6 +21,8 @@ class CreateAccessTokenTable extends Migration {
 			$table->string('token');
 			$table->integer('expires_at')->unsigned();
 			$table->string('scope')->nullable();
+
+			$table->index('token');
 		});
 	}
 

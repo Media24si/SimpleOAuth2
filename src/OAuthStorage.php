@@ -1,17 +1,20 @@
 <?php  namespace Media24si\SimpleOAuth2; 
 
 use Media24si\SimpleOAuth2\Entities\AccessToken;
+use Media24si\SimpleOAuth2\Entities\RefreshToken;
 use Media24si\SimpleOAuth2\Entities\Client;
 
 use OAuth2\IOAuth2GrantClient;
 use OAuth2\IOAuth2GrantUser;
+use OAuth2\IOAuth2RefreshTokens;
 use OAuth2\Model\IOAuth2AccessToken;
 use OAuth2\Model\IOAuth2Client;
 
 use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
+use OAuth2\Model\IOAuth2Token;
 
-class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser {
+class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser, IOAuth2RefreshTokens {
 
 
 	/**
@@ -173,6 +176,7 @@ class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser {
 			config('simpleoauth2.user.username_field') => $username,
 			config('simpleoauth2.user.password_field') => $password,
 		], config('simpleoauth2.user.conditions'));
+
 		if ( Auth::attempt($user_credentials) ) {
 			return [
 				'data' => Auth::user()
@@ -180,6 +184,76 @@ class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser {
 		};
 
 		return false;
+	}
+
+	/**
+	 * Grant refresh access tokens.
+	 *
+	 * Retrieve the stored data for the given refresh token.
+	 * Required for OAuth2::GRANT_TYPE_REFRESH_TOKEN.
+	 *
+	 * @param string $refreshToken Refresh token string.
+	 *
+	 * @return IOAuth2Token
+	 *
+	 * @see     http://tools.ietf.org/html/draft-ietf-oauth-v2-20#section-6
+	 *
+	 * @ingroup oauth2_section_6
+	 */
+	public function getRefreshToken($refreshToken)
+	{
+		return RefreshToken::where('token', $refreshToken)->first();
+	}
+
+	/**
+	 * Take the provided refresh token values and store them somewhere.
+	 *
+	 * This function should be the storage counterpart to getRefreshToken().
+	 * If storage fails for some reason, we're not currently checking for
+	 * any sort of success/failure, so you should bail out of the script
+	 * and provide a descriptive fail message.
+	 * Required for OAuth2::GRANT_TYPE_REFRESH_TOKEN.
+	 *
+	 * @param string $refreshToken The refresh token string to be stored.
+	 * @param IOAuth2Client $client The client associated with this refresh token.
+	 * @param mixed $data Application data associated with the refresh token, such as a User object.
+	 * @param int $expires The timestamp when the refresh token will expire.
+	 * @param string $scope (optional) Scopes to be stored in space-separated string.
+	 *
+	 * @ingroup oauth2_section_6
+	 */
+	public function createRefreshToken($refreshToken, IOAuth2Client $client, $data, $expires, $scope = null)
+	{
+		$refToken = new RefreshToken();
+		$refToken->client_id = $client->id;
+		$refToken->token = $refreshToken;
+		$refToken->expires_at = $expires;
+		$refToken->scope = $scope;
+
+		if ( $data instanceof Authenticatable) {
+			$refToken->user_id = $data->getAuthIdentifier();
+		}
+
+		$refToken->save();
+
+		return $refToken;
+	}
+
+	/**
+	 * Expire a used refresh token.
+	 *
+	 * This is not explicitly required in the spec, but is almost implied. After granting a new refresh token, the old
+	 * one is no longer useful and so should be forcibly expired in the data store so it can't be used again.
+	 * If storage fails for some reason, we're not currently checking for any sort of success/failure, so you should
+	 * bail out of the script and provide a descriptive fail message.
+	 *
+	 * @param string $refreshToken The refresh token string to expire.
+	 *
+	 * @ingroup oauth2_section_6
+	 */
+	public function unsetRefreshToken($refreshToken)
+	{
+		RefreshToken::where('token', $refreshToken)->delete();
 	}
 
 }

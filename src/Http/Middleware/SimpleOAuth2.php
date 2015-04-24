@@ -32,7 +32,12 @@ class SimpleOAuth2 {
 
 		try {
 			$token = $this->oauth->getBearerToken();
-			$this->oauth->verifyAccessToken($token);
+			$accessToken = $this->oauth->verifyAccessToken($token);
+
+			if ( null !== $accessToken->user_id ) {
+				\Auth::loginUsingId($accessToken->user_id);
+			}
+
 		} catch (OAuth2ServerException $oauthError) {
 			return $oauthError->sendHttpResponse();
 		}
