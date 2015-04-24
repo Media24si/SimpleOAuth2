@@ -11,6 +11,7 @@ Current features:
 - Middleware for checking valid token & user
 
 TODO:
+- [ ] Scopes
 - [ ] [Authorization Code](https://tools.ietf.org/html/rfc6749#section-1.3.1)  grant type
 - [ ] [Implicit](https://tools.ietf.org/html/rfc6749#section-1.3.2) grant type
 - [ ] Test
