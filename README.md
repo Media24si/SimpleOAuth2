@@ -2,7 +2,7 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-Very simple package to use OAuth2 in your Laravel5 app. Package is wrapper around [oauth2-php](https://github.com/FriendsOfSymfony/oauth2-php) library.
+A very simple OAuth2 package to use in your Laravel5 app. The package is a wrapper around the [oauth2-php](https://github.com/FriendsOfSymfony/oauth2-php) library.
 
 Current features:
 - [Client credentials](https://tools.ietf.org/html/rfc6749#section-1.3.4) grant type
@@ -40,7 +40,7 @@ Migrate your database
 $ php artisan migrate
 ```
 
-Create route for generating tokens:
+Create a route for generating tokens:
 ``` php
 $ Route::any('/token', '\Media24si\SimpleOAuth2\Http\Controllers\TokenController@token');
 ```
@@ -48,25 +48,25 @@ $ Route::any('/token', '\Media24si\SimpleOAuth2\Http\Controllers\TokenController
 ## USAGE
 
 ### Config
-When you publish vendor files **simpleoauth2.php** config file will be copied to *config* folder.
-Currently only options to configure are:
-- username field
-- password field
+When you publish vendor files, the **simpleoauth2.php** config file will be copied to the *config* folder.
+Currently the only configuration options are:
+- a username field
+- a password field
 - additional conditions
 
-SimpleOAuth2 uses **Auth::attempt** to authenticate user. 
+SimpleOAuth2 uses **Auth::attempt** to authenticate users. 
 
 ### Middleware
-Package comes with one middleware. To use it, you need to register it `app\Http\Kernel.php` under `$routeMiddleware`
+The package comes with one middleware. To use it, you need to register `app\Http\Kernel.php` under `$routeMiddleware`
 ``` php
 'oauth' => '\Media24si\SimpleOAuth2\Http\Middleware\SimpleOAuth2'
 ```
 
-Then in your routes you can request valid oauth2 token:
+Then in your routes you can request a valid oauth2 token:
 ``` php
 Route::get('/protected', ['middleware' => ['oauth'], function() { return 'Protected resource'; }]);
 ```
-Because SimpleOAuth2 is using laravel authentication package you can request authenticated user with oauth:
+Because SimpleOAuth2 is using Laravel authentication package you can request an authenticated user with oauth:
 ``` php
 Route::get('/protected', ['middleware' => ['oauth', 'auth'], function() { return 'Protected resource with valid user'; }]);
 ```
@@ -78,10 +78,10 @@ Route::get('/protected', ['middleware' => ['oauth', 'auth'], function() { return
 ``` bash
 $ php artisan oauth2:create-client
 ```
-Create new oauth2 client.
+Create a new oauth2 client.
 
 You will need to provide:
-- client name
+- a client name
 - client redirect uris
 - allowed grant types
 
