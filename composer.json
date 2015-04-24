@@ -3,7 +3,7 @@
   "description": "Laravel 5 Simple OAuth2",
   "license": "MIT",
   "keywords": ["laravel", "laravel 5", "oauth", "oauth2"],
-  "homepage": "https://github.com/Media24si/RouteExplore",
+  "homepage": "https://github.com/Media24si/SimpleOAuth2",
   "authors": [
     {
       "name": "Bostjan Oblak",
