@@ -62,7 +62,7 @@ abstract class Token extends Model implements IOAuth2Token {
 	 */
 	public function getData()
 	{
-		return;
+		return $this->user_id;
 	}
 
 }
