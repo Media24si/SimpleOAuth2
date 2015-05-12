@@ -11,7 +11,6 @@ use OAuth2\Model\IOAuth2AccessToken;
 use OAuth2\Model\IOAuth2Client;
 
 use Auth;
-use Illuminate\Contracts\Auth\Authenticatable;
 use OAuth2\Model\IOAuth2Token;
 
 class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser, IOAuth2RefreshTokens {

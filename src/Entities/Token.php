@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use OAuth2\Model\IOAuth2Token;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 abstract class Token extends Model implements IOAuth2Token {
 
@@ -66,12 +67,14 @@ abstract class Token extends Model implements IOAuth2Token {
 	}
 
 	public function setData($data) {
+
 		if ( $data instanceof Authenticatable) {
 			$this->user_id = $data->getAuthIdentifier();
 		}
-		else if ( is_int($data) ) {
+		else if ( is_numeric($data) ) {
 			$this->user_id = $data;
 		}
+
 	}
 
 }
