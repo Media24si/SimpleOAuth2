@@ -13,7 +13,7 @@ class Client extends Model implements IOAuth2Client {
 	];
 
 	public function checkSecret($secret) {
-		return $this->client_secret === $secret;
+		return $this->secret === $secret;
 	}
 
 	/**
@@ -21,7 +21,7 @@ class Client extends Model implements IOAuth2Client {
 	 */
 	public function getPublicId()
 	{
-		return $this->client_id;
+		return $this->id;
 	}
 
 	/**

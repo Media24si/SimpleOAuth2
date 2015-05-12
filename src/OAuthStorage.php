@@ -52,7 +52,7 @@ class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser, IOAuth2Refre
 	 */
 	public function getClient($clientId)
 	{
-		return Client::where('client_id', $clientId)->first();
+		return Client::find($clientId);
 	}
 
 	/**

@@ -15,14 +15,12 @@ class CreateAccessTokenTable extends Migration {
 		Schema::create('oauth_accessToken', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('client_id')->unsigned();
+			$table->string('client_id');
 			$table->integer('user_id')->nullable()->unsigned();
 
-			$table->string('token');
+			$table->string('token')->index();
 			$table->integer('expires_at')->unsigned();
 			$table->string('scope')->nullable();
-
-			$table->index('token');
 		});
 	}
 

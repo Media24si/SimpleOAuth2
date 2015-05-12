@@ -41,20 +41,21 @@ class CreateClient extends Command {
 
 		$allowed_grant_types = array_map('trim', explode(',', $allowed_grant_types));
 
+		$client_id = str_random(32);
 		$client = new Client();
 		$client->name = trim($name);
-		$client->client_id = str_random(32);
-		$client->client_secret = str_random(32);
+		$client->id = $client_id;
+		$client->secret = str_random(32);
 		$client->redirect_uris = $return_uris;
 		$client->allowed_grant_types = $allowed_grant_types;
 		$client->save();
-
+		
 		$table = new Table($this->getOutput());
 		$table->setHeaders(array('Client name', 'Client id', 'Client secret', 'Redirect uris', 'Allowed grant types'));
 		$table->addRow([
 			$client->name,
-			$client->client_id,
-			$client->client_secret,
+			$client_id,
+			$client->secret,
 			$client->redirect_uris == null ? '' : implode(PHP_EOL, $client->redirect_uris),
 			$client->allowed_grant_types == null ? '' : implode(PHP_EOL, $client->allowed_grant_types),
 		]);

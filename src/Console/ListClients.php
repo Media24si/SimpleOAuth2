@@ -35,8 +35,8 @@ class ListClients extends Command {
 		foreach ($clients as $client) {
 			$table->addRow([
 				$client->name,
-				$client->client_id,
-				$client->client_secret,
+				$client->id,
+				$client->secret,
 				$client->redirect_uris == null ? '' : implode(PHP_EOL, $client->redirect_uris),
 				$client->allowed_grant_types == null ? '' : implode(PHP_EOL, $client->allowed_grant_types),
 			]);

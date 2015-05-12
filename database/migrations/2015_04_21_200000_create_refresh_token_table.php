@@ -15,14 +15,12 @@ class CreateRefreshTokenTable extends Migration {
         Schema::create('oauth_refreshToken', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('client_id')->unsigned();
+            $table->integer('client');
             $table->integer('user_id')->nullable()->unsigned();
 
-            $table->string('token');
+            $table->string('token')->index();
             $table->integer('expires_at')->unsigned();
             $table->string('scope')->nullable();
-
-			$table->index('token');
         });
     }
 
