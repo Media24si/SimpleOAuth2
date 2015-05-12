@@ -33,14 +33,10 @@ class SimpleOAuth2ServiceProvider extends ServiceProvider  {
 		]);
 
 		$this->app->bind('OAuth2\IOAuth2Storage', 'Media24si\SimpleOAuth2\OAuthStorage');
-		$this->app->bind('OAuth2\OAuth2', 'OAuth2\OAuth2');
-		//$this->registerViews();
+		$this->app->bind('OAuth2\OAuth2', function($app) {
+			$config = config('simpleoauth2.config') ? config('simpleoauth2.config') : [];
+			return new \OAuth2\OAuth2( $app->make('OAuth2\IOAuth2Storage'), $config );
+		});
 	}
-
-	/**
-	 * Register package views
-	 */
-	/*private function registerViews() {
-		$this->loadViewsFrom(__DIR__ . '/resources/views/', 'RouteExplorer');
-	}*/
+	
 }

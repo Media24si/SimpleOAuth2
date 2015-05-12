@@ -12,4 +12,12 @@ return [
 		'conditions' => []
 	],
 
+	/**
+	 * For all possible configurable options see: https://github.com/FriendsOfSymfony/oauth2-php/blob/master/lib/OAuth2.php#L124
+	 * Example:
+	 * \OAuth2\OAuth2::CONFIG_ACCESS_LIFETIME => 60
+	 */
+	'config' => [
+	],
+
 ];
