@@ -8,7 +8,6 @@ abstract class Token extends Model implements IOAuth2Token {
 	public $timestamps = false;
 
 	protected $casts = [
-		'client_id' => 'integer',
 		'user_id' => 'integer',
 		'expires_at' => 'integer'
 	];
