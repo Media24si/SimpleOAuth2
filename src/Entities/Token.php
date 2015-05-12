@@ -65,4 +65,13 @@ abstract class Token extends Model implements IOAuth2Token {
 		return $this->user_id;
 	}
 
+	public function setData($data) {
+		if ( $data instanceof Authenticatable) {
+			$this->user_id = $data->getAuthIdentifier();
+		}
+		else if ( is_int($data) ) {
+			$this->user_id = $data;
+		}
+	}
+
 }

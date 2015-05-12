@@ -113,10 +113,8 @@ class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser, IOAuth2Refre
 		$token->expires_at = $expires;
 		$token->scope = $scope;
 
-		if ( $data instanceof Authenticatable) {
-			$token->user_id = $data->getAuthIdentifier();
-		}
-
+		$token->setData($data);
+		
 		$token->save();
 
 		return $token;
@@ -230,10 +228,8 @@ class OAuthStorage implements IOAuth2GrantClient, IOAuth2GrantUser, IOAuth2Refre
 		$refToken->expires_at = $expires;
 		$refToken->scope = $scope;
 
-		if ( $data instanceof Authenticatable) {
-			$refToken->user_id = $data->getAuthIdentifier();
-		}
-
+		$refToken->setData($data);
+		
 		$refToken->save();
 
 		return $refToken;
