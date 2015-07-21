@@ -33,7 +33,7 @@ Register the SimpleOAuth2ServiceProvider to the providers array in config/app.ph
 
 Publish vendor files:
 ``` bash
-$ art vendor:publish
+$ artisan vendor:publish
 ```
 
 Migrate your database
