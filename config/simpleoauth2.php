@@ -13,6 +13,15 @@ return [
 	],
 
 	/**
+	 * Custom grant types
+	 * Example:
+	 * 	'http://api.com/my_grant_type' => 'App\GrantTypes\MyGrantType'
+	 */
+	'grant_extensions' => [
+
+	],
+
+	/**
 	 * For all possible configurable options see: https://github.com/FriendsOfSymfony/oauth2-php/blob/master/lib/OAuth2.php#L124
 	 * Example:
 	 * \OAuth2\OAuth2::CONFIG_ACCESS_LIFETIME => 60

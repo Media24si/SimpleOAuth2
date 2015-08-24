@@ -11,14 +11,14 @@ class ListClients extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'oauth2:list-clients';
+	protected $signature = 'oauth2:list-clients';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'List all clients';
+	protected $description = 'List all oauth2 clients';
 
 	/**
 	 * Execute the console command.

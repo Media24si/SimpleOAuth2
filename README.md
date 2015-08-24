@@ -2,12 +2,13 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-A very simple OAuth2 package to use in your Laravel5 app. The package is a wrapper around the [oauth2-php](https://github.com/FriendsOfSymfony/oauth2-php) library.
+A very simple OAuth2 package to use in your Laravel5 app. The package is a wrapper around the [oauth2-php](https://github.com/FriendsOfSymfony/oauth2-php) library and is inspired by [FOSOAuthServerBundle](https://github.com/FriendsOfSymfony/FOSOAuthServerBundle).
 
 Current features:
 - [Client credentials](https://tools.ietf.org/html/rfc6749#section-1.3.4) grant type
 - [Resource Owner Password Credentials](https://tools.ietf.org/html/rfc6749#section-1.3.3)  grant type
 - [Refresh token](https://tools.ietf.org/html/rfc6749#section-1.5)
+- [Grant extensions](https://tools.ietf.org/html/rfc6749#section-4.5)
 - Middleware for checking valid token & user
 
 TODO:
@@ -28,7 +29,7 @@ $ composer require media24si/simple-oauth2
 Register the SimpleOAuth2ServiceProvider to the providers array in config/app.php
 
 ``` php
-'Media24si\SimpleOAuth2\SimpleOAuth2ServiceProvider',
+Media24si\SimpleOAuth2\SimpleOAuth2ServiceProvider::class,
 ```
 
 Publish vendor files:
@@ -55,7 +56,7 @@ Currently the only configuration options are:
 - a password field
 - additional conditions
 
-SimpleOAuth2 uses **Auth::attempt** to authenticate users. 
+SimpleOAuth2 uses **Auth::attempt** to authenticate users.
 
 ### Middleware
 The package comes with one middleware. To use it, you need to register `app\Http\Kernel.php` under `$routeMiddleware`
@@ -77,20 +78,19 @@ Route::get('/protected', ['middleware' => ['oauth', 'auth'], function() { return
 **oauth2:create-client**
 
 ``` bash
-$ php artisan oauth2:create-client
+$ php artisan oauth2:create-client {client_name}
 ```
-Create a new oauth2 client.
+Create a new oauth2 client. For all options see help
 
-You will need to provide:
-- a client name
-- client redirect uris
-- allowed grant types
+``` bash
+$ php artisan help oauth2:create-client {client_name}
+```
 
 **oauth2:list-clients**
 ``` bash
 $ php artisan oauth2:list-clients
 ```
-List all clients.
+List all oauth2 clients.
 
 
 ## License

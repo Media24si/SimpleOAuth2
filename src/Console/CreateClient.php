@@ -11,14 +11,17 @@ class CreateClient extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'oauth2:create-client';
+	protected $signature = 'oauth2:create-client
+			{client_name : Name of the client}
+			{--return_uri= : Return uri (if more, seperate by comma)}
+			{--grant_types=authorization_code,token, password,client_credentials,refresh_token : Allowed grant types (if more, seperate by comma)}';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create new client';
+	protected $description = 'Create new oauth2 client';
 
 	/**
 	 * Execute the console command.
@@ -27,9 +30,10 @@ class CreateClient extends Command {
 	 */
 	public function handle()
 	{
-		$name = $this->ask('Client name:', '');
-		$return_uris = $this->ask('Return url (if more, separate by ","):', '');
-		$allowed_grant_types = $this->ask('Allowed grant types (default: authorization_code, token, password, client_credentials, refresh_token):', 'authorization_code, token, password, client_credentials, refresh_token');
+		$name = $this->argument('client_name');
+
+		$return_uris = $this->option('return_uri');
+		$allowed_grant_types = $this->option('grant_types');
 
 		if ( $return_uris !== "" ) {
 			$return_uris = explode(',', $return_uris);
@@ -49,7 +53,7 @@ class CreateClient extends Command {
 		$client->redirect_uris = $return_uris;
 		$client->allowed_grant_types = $allowed_grant_types;
 		$client->save();
-		
+
 		$table = new Table($this->getOutput());
 		$table->setHeaders(array('Client name', 'Client id', 'Client secret', 'Redirect uris', 'Allowed grant types'));
 		$table->addRow([
