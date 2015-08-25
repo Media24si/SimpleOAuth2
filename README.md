@@ -13,8 +13,8 @@ Current features:
 
 TODO:
 - [ ] Scopes
-- [ ] [Authorization Code](https://tools.ietf.org/html/rfc6749#section-1.3.1)  grant type
-- [ ] [Implicit](https://tools.ietf.org/html/rfc6749#section-1.3.2) grant type
+- [x] [Authorization Code](https://tools.ietf.org/html/rfc6749#section-1.3.1)  grant type
+- [x] [Implicit](https://tools.ietf.org/html/rfc6749#section-1.3.2) grant type
 - [ ] Test
 - [ ] Integration with [Travis CI](https://travis-ci.org/)
 
@@ -45,6 +45,11 @@ $ php artisan migrate
 Create a route for generating tokens:
 ``` php
 $ Route::any('/token', '\Media24si\SimpleOAuth2\Http\Controllers\TokenController@token');
+```
+
+If you want to use Authorization code or Implicit grant type add authore controller to rote:
+``` php
+Route::any('/authorize', ['middleware' => 'auth','uses' => '\Media24si\SimpleOAuth2\Http\Controllers\AuthorizeController@authorize']);
 ```
 
 ## USAGE
@@ -92,6 +97,12 @@ $ php artisan oauth2:list-clients
 ```
 List all oauth2 clients.
 
+## Grant types
+
+### Authorization Code and Implicit
+
+To use authorization code or implicit grant types you have to provide auth middleware so user can login.
+You can customize authorize by implementing your own action and view.
 
 ## License
 

@@ -1,7 +1,10 @@
-<?php namespace Media24si\SimpleOAuth2\Entities;
+<?php
 
-class AccessToken extends Token {
+namespace Media24si\SimpleOAuth2\Entities;
 
-	protected $table = 'oauth_accessToken';
+class AccessToken extends Token
+{
+
+    protected $table = 'oauth_accessToken';
 
 }

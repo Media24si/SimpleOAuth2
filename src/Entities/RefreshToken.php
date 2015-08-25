@@ -1,6 +1,9 @@
-<?php namespace Media24si\SimpleOAuth2\Entities;
+<?php
 
-class RefreshToken extends Token {
+namespace Media24si\SimpleOAuth2\Entities;
+
+class RefreshToken extends Token
+{
 
     protected $table = 'oauth_refreshToken';
 
