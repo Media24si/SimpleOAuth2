@@ -18,7 +18,7 @@ abstract class Token extends Model implements IOAuth2Token
 
     public function client()
     {
-        return $this->hasOne('Media24si\SimpleOAuth2\Entities\Client');
+        return $this->belongsTo('Media24si\SimpleOAuth2\Entities\Client');
     }
 
     /**
