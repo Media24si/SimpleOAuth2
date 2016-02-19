@@ -9,7 +9,7 @@ class Client extends Model implements IOAuth2Client
 {
 
     protected $table = 'oauth_client';
-    public $incrementing = true;
+    public $incrementing = false;
 
     protected $casts = [
         'redirect_uris'       => 'array',
